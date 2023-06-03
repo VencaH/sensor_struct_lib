@@ -51,8 +51,8 @@ impl SensorData {
 impl TryFrom<&Bytes> for SensorData {
     type Error = serde_json::Error;
 
-    fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
-        from_slice(value)
+    fn try_from(value: &Bytes) -> Result<Self, Self::Error> {
+        from_slice(value.into())
     }
 }
 
