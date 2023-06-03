@@ -56,7 +56,7 @@ impl TryFrom<&Bytes> for SensorData {
     }
 }
 
-impl TryInto<Bytes> for SensorData {
+impl TryInto<Vec<u8>> for SensorData {
     type Error = serde_json::Error;
 
     fn try_into(self) -> Result<Vec<u8>, Self::Error> {
