@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use serde_json::{to_string,to_vec, from_slice};
+use serde_json::{to_string, to_vec, from_slice};
 
 use std::collections::HashMap;
 use std::str::Bytes;
@@ -48,11 +48,11 @@ impl SensorData {
 }
 
 
-impl TryFrom<&Bytes> for SensorData {
+impl TryFrom<&[u8]> for SensorData {
     type Error = serde_json::Error;
 
-    fn try_from(value: &Bytes) -> Result<Self, Self::Error> {
-        from_slice(value.into())
+    fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
+        from_slice(value)
     }
 }
 
