@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{to_string,to_vec, from_slice};
 
 use std::collections::HashMap;
+use std::str::Bytes;
 use chrono::{DateTime, Utc};
 
 
@@ -47,7 +48,7 @@ impl SensorData {
 }
 
 
-impl TryFrom<&[u8]> for SensorData {
+impl TryFrom<&Bytes> for SensorData {
     type Error = serde_json::Error;
 
     fn try_from(value: &[u8]) -> Result<Self, Self::Error> {
@@ -55,7 +56,7 @@ impl TryFrom<&[u8]> for SensorData {
     }
 }
 
-impl TryInto<Vec<u8>> for SensorData {
+impl TryInto<Bytes> for SensorData {
     type Error = serde_json::Error;
 
     fn try_into(self) -> Result<Vec<u8>, Self::Error> {
