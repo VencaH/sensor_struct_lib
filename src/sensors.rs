@@ -3,7 +3,7 @@ use serde_json::{to_string, to_vec, from_slice};
 
 use std::collections::HashMap;
 use std::str::Bytes;
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Local, Utc, TimeZone};
 
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
@@ -45,6 +45,10 @@ impl SensorData {
             }
         }).collect::<HashMap<String, String>>()
     }
+
+    pub fn get_local_datetime(&self) -> DateTime<Local> {
+        self.date.into()
+    }
 }
 
 
@@ -64,11 +68,11 @@ impl TryInto<Vec<u8>> for SensorData {
     }
 }
 
+#[non_exhaustive]
 #[derive(Serialize, Deserialize, Debug, PartialOrd, PartialEq, Clone)]
 pub enum Measure {
     Temperature(f32),
     Humidity(f32),
-    Unknown(f32),
 }
 
 impl Default for Measure {
