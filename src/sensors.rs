@@ -39,7 +39,7 @@ impl SensorData {
                 Measure::Temperature(value) => {
                     ("temperature".to_string(), format!("{value:.1} °C"))
                 }
-                Measure::Unknown(value) => {
+                Measure::Unspecified(value) => {
                     ("unknown".to_string(), format!("{value:.1} °C"))
                 }
             }
@@ -73,11 +73,12 @@ impl TryInto<Vec<u8>> for SensorData {
 pub enum Measure {
     Temperature(f32),
     Humidity(f32),
+    Unspecified(f32),
 }
 
 impl Default for Measure {
     fn default() -> Self {
-        Self::Unknown(0f32)
+        Self::Unspecified(0f32)
     }
 }
 
@@ -94,7 +95,7 @@ mod tests {
             measures: vec![
                 Measure::Temperature(25.0),
                 Measure::Humidity(50.0),
-                Measure::Unknown(10.0),
+                Measure::Unspecified(10.0),
             ],
         };
         let formatted_measures = data.get_formatted_measures();
